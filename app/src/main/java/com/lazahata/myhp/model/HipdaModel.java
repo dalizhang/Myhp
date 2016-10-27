@@ -8,8 +8,14 @@ import com.lazahata.myhp.ui.Tip;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -27,7 +33,7 @@ public class HipdaModel {
 
     private HipdaModel() {
         client = new OkHttpClient();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.hi-pda.con/forum/").client(client).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.hi-pda.com/forum/").client(client).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).addConverterFactory(ScalarsConverterFactory.create()).build();
         hipda = retrofit.create(Hipda.class);
     }
 
@@ -35,7 +41,13 @@ public class HipdaModel {
         return SINGLE_INSTANCE_HOLDER;
     }
 
-    public void login(final String username, final String password) {
+    public interface LoginCallback {
+        void success();
+
+        void fail(String msg);
+    }
+
+    public void login(final String username, final String password, final LoginCallback callback) {
         hipda.getFormHashPage().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             @Override
             public void onCompleted() {
@@ -44,24 +56,31 @@ public class HipdaModel {
 
             @Override
             public void onError(Throwable e) {
-
+                callback.fail("");
             }
 
             @Override
             public void onNext(String s) {
-                onFormHashReceived(s, username, password);
+                onFormHashReceived(s, username, password, callback);
             }
         });
     }
 
-    private void onFormHashReceived(String s, String username, String password) {
-        String formhash = _getFormHash(s);
-        String cookietime = _getCookieTime(s);
+    private void onFormHashReceived(String page, String username, String password, final LoginCallback callback) {
+        String formhash = _getFormHash(page);
+        String cookietime = _getCookieTime(page);
         if (!TextUtils.isEmpty(formhash)) {
             String referer = "http://www.hi-pda.com/forum/index.php";
             String loginfield = "username";
             String questionid = "0";
             String answer = "";
+            try {
+                username = URLEncoder.encode(username, "GB2312");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                callback.fail("username encode失败");
+                return;
+            }
             hipda.login(formhash, referer, loginfield, username, password, questionid, answer, cookietime).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
                 @Override
                 public void onCompleted() {
@@ -70,16 +89,22 @@ public class HipdaModel {
 
                 @Override
                 public void onError(Throwable e) {
-
+                    callback.fail("");
                 }
 
                 @Override
                 public void onNext(String s) {
-
+                    if (null != s && (s.contains("欢迎您回来") || s.contains("现在将转入登录前页面"))) {
+                        callback.success();
+                    } else if (null != s && s.contains("登录失败")) {
+                        callback.fail("登录失败, 请确认用户名和密码正确");
+                    } else {
+                        callback.fail("登录失败, 请尝试使用浏览器登录");
+                    }
                 }
             });
         } else {
-            Tip.toastLong("获取不到formhash，无法登录");
+            callback.fail("获取不到formhash, 无法登录, 请尝试使用浏览器登录");
         }
     }
 

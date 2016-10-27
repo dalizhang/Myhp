@@ -6,6 +6,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
 
+import static android.R.attr.value;
+
 /**
  * Created by dalizhang on 24/10/2016.
  * E-mail: dalizhang@foxmail.com
@@ -18,7 +20,7 @@ public interface Hipda {
 
     @FormUrlEncoded
     @POST("logging.php?action=login&loginsubmit=yes&inajax=1")
-    Observable<String> login(@Field("formhash") String formhash, @Field("referer") String referer, @Field("loginfield") String loginfield, @Field("username") String username,
+    Observable<String> login(@Field("formhash") String formhash, @Field("referer") String referer, @Field("loginfield") String loginfield, @Field(value = "username", encoded = true) String username,
                @Field("password") String password, @Field("questionid") String questionid, @Field("answer") String answer, @Field("cookietime") String cookietime);
 
 
