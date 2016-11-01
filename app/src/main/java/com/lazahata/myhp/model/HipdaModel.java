@@ -41,10 +41,6 @@ public class HipdaModel {
         return SINGLE_INSTANCE_HOLDER;
     }
 
-    public boolean isLogin() {
-        return false;
-    }
-
     public interface LoginCallback {
         void success();
 

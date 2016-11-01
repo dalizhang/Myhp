@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lazahata.myhp.App;
 import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.FragmentMeBinding;
+import com.lazahata.myhp.utils.Log;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by dalizhang on 25/10/2016.
@@ -27,4 +30,27 @@ public class MeFragment extends Fragment {
         binding.setFragment(this);
         return binding.getRoot();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isVisible() && getUserVisibleHint()) {
+            onRealResume();
+        }
+    }
+
+    private void onRealResume() {
+        Log.i("test:", "onRealResume");
+//        Picasso.with(App.get()).load(url).into(binding.avatar);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isVisible()) {
+            onRealResume();
+        }
+    }
+
+
 }

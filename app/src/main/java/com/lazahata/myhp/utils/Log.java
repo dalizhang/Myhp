@@ -1,5 +1,7 @@
 package com.lazahata.myhp.utils;
 
+import com.lazahata.myhp.BuildConfig;
+
 /**
  * Created by dalizhang on 26/10/2016.
  * E-mail: dalizhang@foxmail.com
@@ -8,8 +10,11 @@ package com.lazahata.myhp.utils;
 public class Log {
 
     public static void i(String tag, String msg) {
-        android.util.Log.i(tag, msg);
+        if (BuildConfig.DEBUG) {
+            android.util.Log.i(tag, msg);
+        }
     }
+
 
 
 }

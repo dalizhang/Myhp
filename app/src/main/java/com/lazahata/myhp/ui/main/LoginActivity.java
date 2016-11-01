@@ -68,7 +68,7 @@ public class LoginActivity extends Activity  {
         HipdaModel.getInstance().kickStartLogin(username, pwdHash, new HipdaModel.LoginCallback() {
             @Override
             public void success() {
-                Tip.toastLong("欢迎您回来, 现在将转入您的主页");
+                Tip.toastShort("欢迎您回来, 现在将转入您的主页");
                 gotoMain();
                 stopProgress();
                 setLoginInProgress(false);
