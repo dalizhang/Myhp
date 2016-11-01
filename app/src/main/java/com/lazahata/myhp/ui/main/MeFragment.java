@@ -55,33 +55,9 @@ public class MeFragment extends Fragment {
         }
     }
 
-    public void onLogOutClicked(View view) {
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setMessage("您确定要退出吗?");
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "狠心退出", new DialogInterface.OnClickListener(){
-
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Lite.remove(Lite.USERNAME);
-                Lite.remove(Lite.PASSWORD_HASH);
-                gotoLogin();
-            }
-        });
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "伤心留下", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // do nothing
-            }
-        });
-        alertDialog.show();
-    }
-
-    private void gotoLogin() {
-        Activity activity = getActivity();
-        Intent go = new Intent(activity, LoginActivity.class);
-        go.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        activity.startActivity(go);
-        activity.finish();
+    public void onSettingClicked(View view) {
+        Intent go = new Intent(getActivity(), SettingsActivity.class);
+        getActivity().startActivity(go);
     }
 
 }
