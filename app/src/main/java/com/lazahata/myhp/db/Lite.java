@@ -25,4 +25,8 @@ public class Lite {
     public static String get(String key) {
         return sharedPreferences.getString(key, null);
     }
+
+    public static void remove(String key) {
+        sharedPreferences.edit().remove(key).apply();
+    }
 }
