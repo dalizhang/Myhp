@@ -9,23 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lazahata.myhp.R;
-import com.lazahata.myhp.databinding.FragmentDBinding;
+import com.lazahata.myhp.databinding.FragmentMeBinding;
 
 /**
  * Created by dalizhang on 25/10/2016.
  * E-mail: dalizhang@foxmail.com
  */
 
-public class DFragment extends Fragment {
+public class MeFragment extends Fragment {
 
-    private FragmentDBinding binding;
+    private FragmentMeBinding binding;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_d, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_me, container, false);
+        binding.setFragment(this);
         return binding.getRoot();
     }
-
-
 }

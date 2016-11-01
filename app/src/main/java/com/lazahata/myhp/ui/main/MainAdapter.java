@@ -22,9 +22,9 @@ public class MainAdapter extends FragmentPagerAdapter {
     public MainAdapter(FragmentManager fm) {
         super(fm);
         list.add(new DFragment());
-        list.add(new DFragment());
-        list.add(new DFragment());
-        list.add(new DFragment());
+        list.add(new FFragment());
+        list.add(new HFragment());
+        list.add(new MeFragment());
     }
 
     @Override
