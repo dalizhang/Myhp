@@ -10,6 +10,7 @@ import android.view.View;
 import com.lazahata.core.util.Hash;
 import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.ActivityLoginBinding;
+import com.lazahata.myhp.db.Lite;
 import com.lazahata.myhp.model.HipdaModel;
 import com.lazahata.myhp.ui.Tip;
 
@@ -27,6 +28,18 @@ public class LoginActivity extends Activity  {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setActivity(this);
+        autoLogin();
+    }
+
+    private void autoLogin() {
+        String username = Lite.get(Lite.USERNAME);
+        String pwdHash = Lite.get(Lite.PASSWORD_HASH);
+        if (!TextUtils.isEmpty(username)) {
+            binding.username.setText(username);
+        }
+        if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(pwdHash)) {
+            login(username, pwdHash);
+        }
     }
 
     private boolean loginInProgress = false;
@@ -37,30 +50,39 @@ public class LoginActivity extends Activity  {
         this.loginInProgress = loginInProgress;
     }
 
-    public void login(View view) {
-        String username = binding.username.getText().toString().trim();
+    public void onLoginClicked(View view) {
+        final String username = binding.username.getText().toString().trim();
+        if (!TextUtils.isEmpty(username)) {
+            Lite.put(Lite.USERNAME, username);
+        }
         String password = binding.password.getText().toString().trim();
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password) && !isLoginInProgress()) {
-            setLoginInProgress(true);
-            String pwdHash = Hash.md5(password.getBytes());
-            showProgress();
-            HipdaModel.getInstance().login(username, pwdHash, new HipdaModel.LoginCallback() {
-                @Override
-                public void success() {
-                    Tip.toastLong("login success");
-                    gotoMain();
-                    stopProgress();
-                    setLoginInProgress(false);
-                }
-
-                @Override
-                public void fail(String msg) {
-                    Tip.toastLong(msg);
-                    stopProgress();
-                    setLoginInProgress(false);
-                }
-            });
+            final String pwdHash = Hash.md5(password.getBytes());
+            login(username, pwdHash);
         }
+    }
+
+    private void login(final String username, final String pwdHash) {
+        setLoginInProgress(true);
+        showProgress();
+        HipdaModel.getInstance().login(username, pwdHash, new HipdaModel.LoginCallback() {
+            @Override
+            public void success() {
+                Tip.toastLong("欢迎您回来, 现在将转入您的主页");
+                gotoMain();
+                stopProgress();
+                setLoginInProgress(false);
+                Lite.put(Lite.USERNAME, username);
+                Lite.put(Lite.PASSWORD_HASH, pwdHash);
+            }
+
+            @Override
+            public void fail(String msg) {
+                Tip.toastLong(msg);
+                stopProgress();
+                setLoginInProgress(false);
+            }
+        });
     }
 
     private void gotoMain() {
