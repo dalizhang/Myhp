@@ -1,5 +1,6 @@
 package com.lazahata.myhp.ui.main;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lazahata.myhp.App;
 import com.lazahata.myhp.R;
+import com.lazahata.myhp.databinding.FragmentDBinding;
 
 /**
  * Created by dalizhang on 25/10/2016.
@@ -17,11 +20,14 @@ import com.lazahata.myhp.R;
 
 public class DFragment extends Fragment {
 
+    private FragmentDBinding binding;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        TextView t = new TextView(getActivity());
-        t.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        return t;
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_d, container, false);
+        return binding.getRoot();
     }
+
+
 }

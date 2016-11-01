@@ -41,6 +41,10 @@ public class HipdaModel {
         return SINGLE_INSTANCE_HOLDER;
     }
 
+    public boolean isLogin() {
+        return false;
+    }
+
     public interface LoginCallback {
         void success();
 
@@ -56,7 +60,7 @@ public class HipdaModel {
 
             @Override
             public void onError(Throwable e) {
-                callback.fail("");
+                callback.fail(e.getMessage());
             }
 
             @Override

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="activity"
+            type="com.lazahata.myhp.ui.main.LoginActivity"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.lazahata.myhp.ui.main.LoginActivity"
+        android:onClick="@{activity::login}">
+
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:hint="username"
+            android:layout_centerInParent="true"
+            android:inputType="text"/>
+        <EditText
+            android:id="@+id/password"
+            android:layout_below="@id/username"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:hint="password"
+            android:layout_centerHorizontal="true"
+            android:inputType="textPassword"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_below="@id/username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</layout>

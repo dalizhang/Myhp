@@ -3,8 +3,8 @@ package com.lazahata.myhp.utils;
 import com.lazahata.myhp.BuildConfig;
 
 /**
- * Created by ZHANGHAICHUAN889 on 26/10/2016.
- * E-mail: zhanghaichuan889@pingan.com.cn
+ * Created by dalizhang on 26/10/2016.
+ * E-mail: dalizhang@foxmail.com
  */
 
 public class Conf {

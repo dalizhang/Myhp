@@ -9,6 +9,11 @@ import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.ActivityMainBinding;
 import com.lazahata.myhp.utils.Log;
 
+/**
+ * Created by dalizhang on 25/10/2016.
+ * E-mail: dalizhang@foxmail.com
+ */
+
 public class MainActivity extends FragmentActivity {
 
     private ActivityMainBinding binding;
@@ -16,7 +21,6 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("test", "onCreate");
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setActivity(this);
         binding.viewpager.setAdapter(new MainAdapter(getSupportFragmentManager()));

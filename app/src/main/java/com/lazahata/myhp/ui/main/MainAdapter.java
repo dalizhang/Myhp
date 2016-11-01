@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import org.antlr.runtime.DFA;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +21,9 @@ public class MainAdapter extends FragmentPagerAdapter {
 
     public MainAdapter(FragmentManager fm) {
         super(fm);
-        list.add(new LoginFragment());
         list.add(new DFragment());
-        list.add(new LoginFragment());
+        list.add(new DFragment());
+        list.add(new DFragment());
         list.add(new DFragment());
     }
 
