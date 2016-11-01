@@ -51,7 +51,13 @@ public class HipdaModel {
         void fail(String msg);
     }
 
-    public void login(final String username, final String password, final LoginCallback callback) {
+    /**
+     * some values must be retrieved before the real login
+     * @param username
+     * @param password
+     * @param callback
+     */
+    public void kickStartLogin(final String username, final String password, final LoginCallback callback) {
         hipda.getFormHashPage().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             @Override
             public void onCompleted() {
