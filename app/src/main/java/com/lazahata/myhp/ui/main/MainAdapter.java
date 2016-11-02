@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import org.antlr.runtime.DFA;
+import com.lazahata.myhp.ui.d.DFragment;
 
 import java.util.ArrayList;
 import java.util.List;

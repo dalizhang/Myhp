@@ -1,4 +1,4 @@
-package com.lazahata.myhp.ui.main;
+package com.lazahata.myhp.ui.d;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -24,8 +24,8 @@ public class DFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_d, container, false);
+        binding.list.setAdapter(new DAdapter());
         return binding.getRoot();
     }
-
 
 }
