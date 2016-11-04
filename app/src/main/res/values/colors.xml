@@ -6,4 +6,5 @@
     <color name="gray">#cccccc</color>
     <color name="gray_light_trans">#99eeeeee</color>
     <color name="red">#ff0000</color>
+    <color name="black">#000000</color>
 </resources>

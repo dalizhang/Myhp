@@ -1,8 +1,5 @@
 package com.lazahata.myhp.ui.main;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -14,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.FragmentMeBinding;
-import com.lazahata.myhp.db.Lite;
 import com.lazahata.myhp.utils.Log;
 
 /**
