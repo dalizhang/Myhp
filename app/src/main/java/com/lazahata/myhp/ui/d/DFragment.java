@@ -12,6 +12,7 @@ import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.FragmentDBinding;
 import com.lazahata.myhp.entity.Thread;
 import com.lazahata.myhp.ui.Tip;
+import com.lazahata.myhp.ui.common.BaseVPFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  * E-mail: dalizhang@foxmail.com
  */
 
-public class DFragment extends Fragment {
+public class DFragment extends BaseVPFragment {
 
     private FragmentDBinding binding;
 
@@ -46,4 +47,13 @@ public class DFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    protected void onRealResume() {
+
+    }
+
+    @Override
+    protected void onRealPause() {
+
+    }
 }

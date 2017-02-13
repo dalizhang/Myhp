@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.FragmentMeBinding;
+import com.lazahata.myhp.ui.common.BaseVPFragment;
 import com.lazahata.myhp.utils.Log;
 
 /**
@@ -18,7 +19,7 @@ import com.lazahata.myhp.utils.Log;
  * E-mail: dalizhang@foxmail.com
  */
 
-public class MeFragment extends Fragment {
+public class MeFragment extends BaseVPFragment {
 
     private FragmentMeBinding binding;
 
@@ -30,30 +31,19 @@ public class MeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(isVisible() && getUserVisibleHint()) {
-            onRealResume();
-        }
-    }
-
-    private void onRealResume() {
-        Log.i("test:", "onRealResume");
-//        Picasso.with(App.get()).load(url).into(binding.avatar);
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isVisible()) {
-            onRealResume();
-        }
-    }
-
     public void onSettingClicked(View view) {
         Intent go = new Intent(getActivity(), SettingsActivity.class);
         getActivity().startActivity(go);
+    }
+
+    @Override
+    protected void onRealResume() {
+
+    }
+
+    @Override
+    protected void onRealPause() {
+
     }
 
 }

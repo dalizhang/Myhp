@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 
 import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.FragmentHBinding;
+import com.lazahata.myhp.ui.common.BaseVPFragment;
 
 /**
  * Created by dalizhang on 25/10/2016.
  * E-mail: dalizhang@foxmail.com
  */
 
-public class HFragment extends Fragment {
+public class HFragment extends BaseVPFragment {
 
     private FragmentHBinding binding;
 
@@ -26,5 +27,15 @@ public class HFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_h, container, false);
         binding.setFragment(this);
         return binding.getRoot();
+    }
+
+    @Override
+    protected void onRealResume() {
+
+    }
+
+    @Override
+    protected void onRealPause() {
+
     }
 }
