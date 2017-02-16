@@ -87,7 +87,6 @@ public class LoginActivity extends Activity  {
 
     private void gotoMain() {
         Intent go = new Intent(this, MainActivity.class);
-        go.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(go);
         this.finish();
     }

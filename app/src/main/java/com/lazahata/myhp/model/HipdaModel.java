@@ -2,20 +2,25 @@ package com.lazahata.myhp.model;
 
 import android.text.TextUtils;
 
+import com.android.annotations.NonNull;
+import com.lazahata.core.gbkconverter.GbkStringConverterFactory;
 import com.lazahata.myhp.network.Hipda;
-import com.lazahata.myhp.ui.Tip;
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -32,8 +37,21 @@ public class HipdaModel {
     Hipda hipda;
 
     private HipdaModel() {
-        client = new OkHttpClient();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.hi-pda.com/forum/").client(client).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).addConverterFactory(ScalarsConverterFactory.create()).build();
+        client = new OkHttpClient.Builder().cookieJar(new CookieJar() {
+            private final HashMap<String, List<Cookie>> cookieBox = new HashMap<>();
+
+            @Override
+            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                cookieBox.put(url.host(), cookies);
+            }
+
+            @Override
+            public List<Cookie> loadForRequest(HttpUrl url) {
+                List<Cookie> cookies = cookieBox.get(url.host());
+                return null == cookies ? new ArrayList<Cookie>() : cookies;
+            }
+        }).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.hi-pda.com/").client(client).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).addConverterFactory(GbkStringConverterFactory.create()).build();
         hipda = retrofit.create(Hipda.class);
     }
 
@@ -53,7 +71,7 @@ public class HipdaModel {
      * @param password
      * @param callback
      */
-    public void kickStartLogin(final String username, final String password, final LoginCallback callback) {
+    public void kickStartLogin(final String username, final String password, @NonNull final LoginCallback callback) {
         hipda.getFormHashPage().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             @Override
             public void onCompleted() {
@@ -72,7 +90,7 @@ public class HipdaModel {
         });
     }
 
-    private void onFormHashReceived(String page, String username, String password, final LoginCallback callback) {
+    private void onFormHashReceived(String page, String username, String password, @NonNull final LoginCallback callback) {
         String formhash = _getFormHash(page);
         String cookietime = _getCookieTime(page);
         if (!TextUtils.isEmpty(formhash)) {
@@ -128,6 +146,40 @@ public class HipdaModel {
         String value = "";
         if (size >= 1)  value = elements.get(0).val();
         return value;
+    }
+
+
+    public interface ForumDiscoveryCallback {
+        void success(String result);
+        void failure(String msg);
+    }
+    public void getForumDiscovery(@NonNull final ForumDiscoveryCallback callback) {
+        hipda.getForumDiscovery().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(new Observer<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                callback.failure(e.getMessage());
+            }
+
+            @Override
+            public void onNext(String s) {
+                callback.success(s);
+            }
+        });
+    }
+
+    private static String toGbk(byte[] s) {
+        String result = "";
+        try {
+            result = new String(s, "gb2312");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

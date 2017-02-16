@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.annotations.NonNull;
 import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.ThreadItemBinding;
 import com.lazahata.myhp.entity.Thread;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class DAdapter extends RecyclerView.Adapter<DAdapter.DHolder> {
 
-    List<Thread> threadList = new ArrayList<>();
+    private List<Thread> threadList = new ArrayList<>();
     private Callback mCallback;
 
     public DAdapter(List<Thread> list, Callback callback) {
@@ -46,6 +47,11 @@ public class DAdapter extends RecyclerView.Adapter<DAdapter.DHolder> {
     @Override
     public int getItemCount() {
         return threadList.size();
+    }
+
+    public void setData(@NonNull List<Thread> threads) {
+        this.threadList.clear();
+        this.threadList.addAll(threads);
     }
 
     public class DHolder extends RecyclerView.ViewHolder {

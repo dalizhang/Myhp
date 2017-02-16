@@ -12,9 +12,15 @@ public class Thread extends BaseObservable {
     @Bindable
     private String title;
     @Bindable
-    private String author;
+    private Author author;
     @Bindable
     private String replyCount;
+    @Bindable
+    private String href;
+    @Bindable
+    private String createdTime;
+    @Bindable
+    private String lastReplyTime;
 
     public String getTitle() {
         return title;
@@ -24,11 +30,11 @@ public class Thread extends BaseObservable {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -38,5 +44,29 @@ public class Thread extends BaseObservable {
 
     public void setReplyCount(String replyCount) {
         this.replyCount = replyCount;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    public String getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public String getLastReplyTime() {
+        return lastReplyTime;
+    }
+
+    public void setLastReplyTime(String lastReplyTime) {
+        this.lastReplyTime = lastReplyTime;
     }
 }

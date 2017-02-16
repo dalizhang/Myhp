@@ -6,8 +6,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
 
-import static android.R.attr.value;
-
 /**
  * Created by dalizhang on 24/10/2016.
  * E-mail: dalizhang@foxmail.com
@@ -15,13 +13,16 @@ import static android.R.attr.value;
 
 public interface Hipda {
 
-    @GET("logging.php?action=login")
+    @GET("forum/logging.php?action=login")
     Observable<String> getFormHashPage();
 
     @FormUrlEncoded
-    @POST("logging.php?action=login&loginsubmit=yes&inajax=1")
+    @POST("forum/logging.php?action=login&loginsubmit=yes&inajax=1")
     Observable<String> login(@Field("formhash") String formhash, @Field("referer") String referer, @Field("loginfield") String loginfield, @Field(value = "username", encoded = true) String username,
                @Field("password") String password, @Field("questionid") String questionid, @Field("answer") String answer, @Field("cookietime") String cookietime);
+
+    @GET("forum/forumdisplay.php?fid=2")
+    Observable<String> getForumDiscovery();
 
 
 }
