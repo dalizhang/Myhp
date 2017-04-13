@@ -1,8 +1,8 @@
 package com.lazahata.myhp.model;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.android.annotations.NonNull;
 import com.lazahata.core.gbkconverter.GbkStringConverterFactory;
 import com.lazahata.myhp.network.Hipda;
 
