@@ -1,7 +1,7 @@
 package com.lazahata.myhp.entity;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
 /**
  * Created by lazahata on 15/2/2017.

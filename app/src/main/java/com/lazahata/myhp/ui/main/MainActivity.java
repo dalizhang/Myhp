@@ -1,9 +1,10 @@
 package com.lazahata.myhp.ui.main;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
 
 import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.ActivityMainBinding;

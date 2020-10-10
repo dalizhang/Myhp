@@ -1,6 +1,6 @@
 package com.lazahata.myhp.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.lazahata.core.gbkconverter.GbkStringConverterFactory;
@@ -51,7 +51,7 @@ public class HipdaModel {
                 return null == cookies ? new ArrayList<Cookie>() : cookies;
             }
         }).build();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.hi-pda.com/").client(client).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).addConverterFactory(GbkStringConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://www.hi-pda.com/").client(client).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).addConverterFactory(GbkStringConverterFactory.create()).build();
         hipda = retrofit.create(Hipda.class);
     }
 

@@ -1,10 +1,10 @@
 package com.lazahata.myhp.ui.main;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.lazahata.myhp.R;
 import com.lazahata.myhp.databinding.FragmentMeBinding;
 import com.lazahata.myhp.ui.common.BaseVPFragment;
-import com.lazahata.myhp.utils.Log;
 
 /**
  * Created by dalizhang on 25/10/2016.
